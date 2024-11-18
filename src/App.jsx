@@ -28,15 +28,32 @@ const client = generateClient({
 
 export default function App() {
   const [notes, setNotes] = useState([]);
+  const [apiData, setApiData] = useState(null);
+
 
   useEffect(() => {
     fetchNotes();
   }, []);
 
+  useEffect(() => {
+    async function loadApiData() {
+      const data = await fetchDataFromApi();
+      setApiData(data);
+    }
+    loadApiData();
+  }, []);
+  
+
   async function fetchDataFromApi() {
     try {
       const response = await fetch("https://mxrqoqdb6i.execute-api.eu-north-1.amazonaws.com/deployment/hello");
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+  
       const data = await response.text();
+      console.log("Fetched data:", data);
       return data;
     } catch (error) {
       console.error("Error fetching data from API:", error);
@@ -148,7 +165,7 @@ export default function App() {
             </Flex>
           </View>
           <Divider />
-          <Heading level={2}>Test:{fetchDataFromApi()}</Heading>
+          <Heading level={2}>Test: {apiData ? apiData : "Loading..."}</Heading>
           <Heading level={2}>Current Notes</Heading>
           <Grid
             margin="3rem 0"
