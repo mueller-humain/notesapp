@@ -33,6 +33,17 @@ export default function App() {
     fetchNotes();
   }, []);
 
+  async function fetchDataFromApi() {
+    try {
+      const response = await fetch("https://mxrqoqdb6i.execute-api.eu-north-1.amazonaws.com/deployment/hello");
+      const data = await response.text();
+      return data;
+    } catch (error) {
+      console.error("Error fetching data from API:", error);
+      return null;
+    }
+  }
+
   async function fetchNotes() {
     const { data: notes } = await client.models.Note.list();
     await Promise.all(
@@ -137,6 +148,7 @@ export default function App() {
             </Flex>
           </View>
           <Divider />
+          <Heading level={2}>{fetchDataFromApi()}</Heading>
           <Heading level={2}>Current Notes</Heading>
           <Grid
             margin="3rem 0"
