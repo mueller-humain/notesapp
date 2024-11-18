@@ -148,7 +148,7 @@ export default function App() {
             </Flex>
           </View>
           <Divider />
-          <Heading level={2}>{fetchDataFromApi()}</Heading>
+          <Heading level={2}>Test: {fetchDataFromApi()}</Heading>
           <Heading level={2}>Current Notes</Heading>
           <Grid
             margin="3rem 0"
