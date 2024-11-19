@@ -29,6 +29,7 @@ const client = generateClient({
 export default function App() {
   const [notes, setNotes] = useState([]);
   const [apiData, setApiData] = useState(null);
+  const [userEmail, setUserEmail] = useState("");
 
 
   useEffect(() => {
@@ -41,6 +42,19 @@ export default function App() {
       setApiData(data);
     }
     loadApiData();
+  }, []);
+
+  useEffect(() => {
+    async function fetchUserEmail() {
+      try {
+        const user = await Auth.currentAuthenticatedUser();
+        const email = user.attributes.email;
+        setUserEmail(email);
+      } catch (error) {
+        console.error("Error fetching user email:", error);
+      }
+    }
+    fetchUserEmail();
   }, []);
   
 
@@ -118,7 +132,7 @@ export default function App() {
 
   return (
     <Authenticator>
-      {({ signOut, user }) => (
+      {({ signOut }) => (
         <Flex
           className="App"
           justifyContent="center"
@@ -165,7 +179,7 @@ export default function App() {
             </Flex>
           </View>
           <Divider />
-          <Heading level={2}>Test: {apiData ? apiData + " " + user.userId  : "Loading..."}</Heading>
+          <Heading level={2}>Test: {apiData ? apiData + " " + userEmail  : "Loading..."}</Heading>
           <Heading level={2}>Current Notes</Heading>
           <Grid
             margin="3rem 0"
