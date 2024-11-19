@@ -14,7 +14,7 @@ import {
 import { Amplify } from "aws-amplify";
 import "@aws-amplify/ui-react/styles.css";
 import { getUrl } from "aws-amplify/storage";
-import { Auth } from "aws-amplify";
+import { Auth } from "aws-amplify/auth";
 import { uploadData } from "aws-amplify/storage";
 import { generateClient } from "aws-amplify/data";
 import outputs from "../amplify_outputs.json";
