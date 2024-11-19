@@ -118,7 +118,7 @@ export default function App() {
 
   return (
     <Authenticator>
-      {({ signOut }) => (
+      {({ signOut, user }) => (
         <Flex
           className="App"
           justifyContent="center"
@@ -165,7 +165,7 @@ export default function App() {
             </Flex>
           </View>
           <Divider />
-          <Heading level={2}>Test: {apiData ? apiData : "Loading..."}</Heading>
+          <Heading level={2}>Test: {apiData ? apiData + " " + user.name  : "Loading..."}</Heading>
           <Heading level={2}>Current Notes</Heading>
           <Grid
             margin="3rem 0"
